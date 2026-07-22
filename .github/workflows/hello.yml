@@ -24,7 +24,7 @@ jobs:
           run: ls
 
         - name: branch name
-          run: $GITHUB_REF_NAME
+          run: echo " $GITHUB_REF_NAME "
 
         - name: OS
-          run: $RUNNER_OS
+          run: echo " $RUNNER_OS "
