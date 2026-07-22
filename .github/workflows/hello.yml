@@ -16,3 +16,15 @@ jobs:
 
         - name: Hello 
           run: echo "Hello from GitHub actions"
+
+        - name: date command 
+          run: date
+
+        - name: list
+          run: ls
+
+        - name: branch name
+          run: $GITHUB_REF_NAME
+
+        - name: OS
+          run: $RUNNER_OS
