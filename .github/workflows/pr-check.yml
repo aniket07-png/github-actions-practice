@@ -1,0 +1,17 @@
+---
+name: PR Check
+
+on:
+  pull_request:
+
+  push:
+    branches:
+      - main
+
+jobs:
+  pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Message
+        run: echo "PR check is running for branch: $GITHUB_REF_NAME"
+        
