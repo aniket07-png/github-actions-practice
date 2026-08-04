@@ -6,15 +6,19 @@ on:
 
 jobs:
   python-matrix:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os: [ windows-latest , macos-latest ]
         python-version: [ "3.10","3.11","3.12" ]
         
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
+
+      - name: OS Run
+        run: echo "Runs on ${{ matrix.os }}"
 
       - name: setup python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
