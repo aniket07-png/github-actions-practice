@@ -18,4 +18,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: input value
-        run: echo "Input Value - ${{ inputs.environment }}
+        run: echo "Input Value ${{ inputs.environment }}"
