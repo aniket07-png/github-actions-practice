@@ -15,7 +15,7 @@ jobs:
           echo "User name is $(whoami)"
           docker --version
           python --version
-          npm --vrrsion
+          npm --version
           git --version
 
   windows-run:
