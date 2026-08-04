@@ -13,6 +13,10 @@ jobs:
           echo "OS name is ${{ runner.os }}"
           echo "Hostname is $HOSTNAME"
           echo "User name is $(whoami)"
+          docker --version
+          python --version
+          npm --vrrsion
+          git --version
 
   windows-run:
     runs-on: windows-latest
