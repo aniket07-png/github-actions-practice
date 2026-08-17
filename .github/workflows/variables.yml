@@ -22,5 +22,6 @@ jobs:
           echo "Version is : $VERSION"
 
       - name: Info 2
-        run: echo "Version is : $VERSION"
+        run: |
+          echo "Version is : $VERSION"
         
