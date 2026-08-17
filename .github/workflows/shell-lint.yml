@@ -18,4 +18,4 @@ jobs:
           severity: "warning" # Options: error, warning, info, style
 
       - name: Running Shell Script 
-        run: ./mini-calculator.sh
+        run: bash mini-calculator.sh
