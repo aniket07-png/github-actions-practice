@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: error
-        run: echo "errors
+        run: echo "errors"
 
       - name: run
         if: failure()
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: error no. 2
-        run: echo "some more error   # Suppose this returns a non-zero exit code
+        run: echo "some more error"   # Suppose this returns a non-zero exit code
         continue-on-error: true      # Allows the job to proceed regardless
 
       - name: fixing
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true # If any step here fails, dependent jobs still fire
     steps:
-      - run: exit 1
+      - run: echo "exit 1"
 
   production-deploy:
     needs: [experimental-job] # Triggers even though experimental-job failed
