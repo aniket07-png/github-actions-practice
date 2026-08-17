@@ -27,4 +27,9 @@ jobs:
       - name: Info 2
         run: |
           echo "Version is : $VERSION"
-        
+
+      - name: Print Commit SHA and Actor
+        run: |
+          echo "The Commit SHA is: ${{ github.sha }}"
+          echo "The Actor who triggered this run is: ${{ github.actor }}"
+          
