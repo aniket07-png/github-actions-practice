@@ -1,0 +1,26 @@
+---
+name: Variables Levels
+on:
+  workflow_dispatch:
+
+env:
+  APP_NAME: MyApp
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    env:  
+      ENVIRONMENT: staging
+      VERSION: 1.1.1
+    steps:
+      - name: Info
+        env:
+          VERSION: 1.0.0
+        run: |
+          echo "App is : $APP_NAME"
+          echo "Environment is : $ENVIRONMENT"
+          echo "Version is : $VERSION"
+
+      - name: Info 2
+        run: echo "Version is : $VERSION"
+        
