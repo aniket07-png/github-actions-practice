@@ -29,5 +29,5 @@ jobs:
           name: my-artifact
 
       - name: Print file contents
-        run: cat artifact.txt
+        run: cat build.log
         
