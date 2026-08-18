@@ -1,0 +1,36 @@
+---
+name: Reusable Build 
+on: 
+  workflow_call:
+    inputs:
+      app_name:
+        description: 'Name of the application'
+        required: true
+        default: "MyAwesomeApp"
+        type: string
+        
+      environment :
+        description: This is the environment value where this workflow runs
+        default: 'staging'
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Info
+        run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }}"
+
+      - name: Check Docker Token Presence
+        env:
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+        run: |
+          if [ -z "$DOCKER_TOKEN" ]; then
+            echo "Docker token is set: false"
+          else
+            echo "Docker token is set: true"
+          fi
