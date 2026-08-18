@@ -31,6 +31,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+           ${{ runner.os }}-docker-
+          
       - name: Build and Push to DockerHub
         uses: docker/build-push-action@v6
         with:
@@ -39,3 +47,9 @@ jobs:
           tags: |
               ${{ secrets.DOCKER_USERNAME }}/go-web-app:${{ github.sha }}
               ${{ secrets.DOCKER_USERNAME }}/go-web-app:latest
+
+      - name: Move Docker cache
+        run: |
+         rm -rf /tmp/.buildx-cache
+         mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+         
