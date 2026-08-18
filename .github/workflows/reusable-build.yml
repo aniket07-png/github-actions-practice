@@ -11,7 +11,7 @@ on:
         type: string
 
       environment:
-        description: "This is the environment value where this workflow runs"
+        description: "Environment where this workflow runs"
         required: true
         default: "staging"
         type: string
@@ -20,16 +20,35 @@ on:
       DOCKER_TOKEN:
         required: true
 
+    outputs:
+      build_version:
+        description: "Generated build version"
+        value: ${{ jobs.build.outputs.build_version }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    outputs:
+      build_version: ${{ steps.version.outputs.build_version }}
 
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
 
       - name: Info
-        run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }}"
+        run: |
+          echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }}"
+
+      - name: Generate Build Version
+        id: version
+        run: |
+          SHORT_SHA="${GITHUB_SHA::7}"
+          VERSION="v1.0-${SHORT_SHA}"
+
+          echo "Build version: $VERSION"
+
+          echo "build_version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Check Docker Token Presence
         env:
