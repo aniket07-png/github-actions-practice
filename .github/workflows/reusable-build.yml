@@ -1,23 +1,29 @@
 ---
-name: Reusable Build 
-on: 
+name: Reusable Build
+
+on:
   workflow_call:
     inputs:
       app_name:
-        description: 'Name of the application'
+        description: "Name of the application"
         required: true
         default: "MyAwesomeApp"
         type: string
-        
-      environment :
-        description: This is the environment value where this workflow runs
-        default: 'staging'
+
+      environment:
+        description: "This is the environment value where this workflow runs"
         required: true
+        default: "staging"
         type: string
+
+    secrets:
+      DOCKER_TOKEN:
+        required: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
