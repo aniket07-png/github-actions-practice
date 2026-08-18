@@ -1,0 +1,15 @@
+---
+name: Calling Build Workflow 
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build.yml
+    with:
+      app_name: "MyAwesomeApp"
+      environment: "staging"
+    secrets:
+      docker_token: ${{ secrets.DOCKER_TOKEN }}
