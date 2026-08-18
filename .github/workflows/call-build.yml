@@ -1,6 +1,7 @@
 ---
-name: Calling Build Workflow 
-on: 
+name: Calling Build Workflow
+
+on:
   push:
     branches:
       - main
@@ -8,8 +9,20 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/reusable-build.yml
+
     with:
       app_name: "MyAwesomeApp"
       environment: "staging"
+
     secrets:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+
+  deploy:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Build Version
+        run: |
+          echo "Build version is: ${{ needs.build.outputs.build_version }}"
