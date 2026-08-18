@@ -1,0 +1,24 @@
+---
+name: Greet
+
+on:
+  workflow_dispatch:
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup and Greet
+        id: greeting
+        uses: ./.github/actions/setup-and-greet
+        with:
+          name: "Aniket"
+          language: "hi"
+
+      - name: Check output
+        run: |
+          echo "Was greeted: ${{ steps.greeting.outputs.greeted }}"
