@@ -4,7 +4,7 @@ name: Calling Build Workflow
 on:
   push:
     branches:
-      - main
+      - test
 
 jobs:
   build:
