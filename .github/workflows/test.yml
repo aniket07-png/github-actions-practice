@@ -1,0 +1,11 @@
+---
+name: Testing
+on:
+  push:
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tests
+        run: echo "Running Tests"
