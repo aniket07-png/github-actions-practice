@@ -10,9 +10,6 @@ on:
       - 'static/**'
       - '.github/actions/**'
 
-    paths-ignore:
-      - '*.md'
-
 jobs:
   info:
     runs-on: ubuntu-latest
