@@ -3,7 +3,6 @@ name: Triggers
 on:
   push:
     branches:
-      - main
       - staging
       
     paths:
