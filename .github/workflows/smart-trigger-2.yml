@@ -3,14 +3,11 @@ name: Trigger 2
 on:
   push:
     branches:
-      - main
-      
-    paths-ignore:
-      - '*.md'
+      - staging
 
 jobs:
   info:
     runs-on: ubuntu-latest
     steps:
       - name: Branch Name 
-        run: echo "$GITHUB_HEAD_REF"
+        run: $GITHUB_HEAD_REF
