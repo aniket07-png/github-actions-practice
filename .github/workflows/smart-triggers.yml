@@ -1,0 +1,21 @@
+---
+name: Triggers
+on:
+  push:
+    branches:
+      - main
+      - staging
+      
+    paths:
+      - 'static/**'
+      - '.github/actions/**'
+
+    paths-ignore:
+      - '*.md'
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Branch Name
+        run: echo "${{ github.head_ref }}"
