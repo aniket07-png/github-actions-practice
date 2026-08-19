@@ -1,0 +1,51 @@
+---
+name: Conditions
+on:
+  workflow_dispatch: 
+  pull_request:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: job main
+        run: echo "${{ github.ref_name }}"
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: error
+        run: echo "errors"
+
+      - name: run
+        if: failure()
+        run: echo "Previous step failed"
+
+  push-only-job:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This job skips on pull requests."
+
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: error no. 2
+        run: echo "some more error"   # Suppose this returns a non-zero exit code
+        continue-on-error: true      # Allows the job to proceed regardless
+
+      - name: fixing
+        run: echo "error fixed"
+
+  experimental-job:
+    runs-on: ubuntu-latest
+    continue-on-error: true # If any step here fails, dependent jobs still fire
+    steps:
+      - run: echo "exit 1"
+
+  production-deploy:
+    needs: [experimental-job] # Triggers even though experimental-job failed
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying assets..."

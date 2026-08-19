@@ -1,0 +1,37 @@
+---
+name: Different Runners
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ubuntu-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Info
+        run: |
+          echo "OS name is ${{ runner.os }}"
+          echo "Hostname is $HOSTNAME"
+          echo "User name is $(whoami)"
+          docker --version
+          python --version
+          npm --version
+          git --version
+
+  windows-run:
+    runs-on: windows-latest
+    steps:
+      - name: Info
+        run: |
+          echo "OS name is ${{ runner.os }}"
+          echo "Hostname is $HOSTNAME"
+          echo "User name is $(whoami)"
+
+  macos-run:
+    runs-on: macos-latest
+    steps:
+      - name: Info
+        run: |
+          echo "OS name is ${{ runner.os }}"
+          echo "Hostname is $HOSTNAME"
+          echo "User name is $(whoami)"

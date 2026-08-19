@@ -2,11 +2,7 @@
 name: PR Check
 
 on:
-  pull_request:
-
-  push:
-    branches:
-      - main
+  pull_request: 
 
 jobs:
   pr:
@@ -14,4 +10,3 @@ jobs:
     steps:
       - name: PR Message
         run: echo "PR check is running for branch $GITHUB_REF_NAME"
-        

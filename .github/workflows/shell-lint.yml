@@ -1,0 +1,21 @@
+---
+name: Lint Shell Scripts
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  shellcheck:
+    name: ShellCheck Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Shell Linter
+        uses: Azbagheri/shell-linter@latest
+        with:
+          severity: "warning" # Options: error, warning, info, style
+
+      - name: Running Shell Script 
+        run: bash mini-calculator.sh

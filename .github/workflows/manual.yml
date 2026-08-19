@@ -1,0 +1,21 @@
+---
+name: Manual Trigger
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment :
+        description: This is the environment value where this workflow runs
+        default: 'test'
+        required: true
+        type: choice
+        options:
+          - test
+          - main
+
+jobs:
+  manual:
+    runs-on: ubuntu-latest
+    steps:
+      - name: input value
+        run: echo "Input Value ${{ inputs.environment }}"

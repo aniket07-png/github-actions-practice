@@ -1,0 +1,19 @@
+---
+name: Self Hosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  runner:
+    runs-on: [ self-hosted , my-linux-runner ]
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Print the info
+        run: |
+         echo "$(hostname)"
+         pwd
+         touch "runner-demo.txt"
+         

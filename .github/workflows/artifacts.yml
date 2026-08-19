@@ -1,0 +1,33 @@
+---
+name: Artifacts
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generating Log File
+        run: |
+          echo "Build started at $(date)" > build.log
+          echo "Running tests..." >> build.log
+          echo "All tests passed successfully." >> build.log
+
+      - name: Saving Artifacts 
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: build.log
+          
+  download:
+    runs-on: ubuntu-latest
+    needs: upload
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-artifact
+
+      - name: Print file contents
+        run: cat build.log
+        
