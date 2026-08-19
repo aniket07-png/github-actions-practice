@@ -1,0 +1,6 @@
+---
+name: Another Test
+on:
+  workflow_run:
+    workflows: ["Run Tests"]
+    types: [completed]
