@@ -3,10 +3,55 @@ name: PR Check
 
 on:
   pull_request: 
+    branches:
+      - main
 
 jobs:
-  pr:
+  file-size-check:
     runs-on: ubuntu-latest
     steps:
-      - name: PR Message
-        run: echo "PR check is running for branch $GITHUB_REF_NAME"
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Fails if any file in the PR is larger than 1 MB
+        run: find . -type file -size -1M
+
+  branch-name-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Branch Name
+        run: echo "Branch Name - ${{ github.head_ref }}"
+
+      - name: Check branch name
+        run: |
+          BRANCH="${{ github.head_ref }}"
+
+          echo "Checking branch: $BRANCH"
+
+          if [[ "$BRANCH" == feature/* ||
+                "$BRANCH" == fix/* ||
+                "$BRANCH" == docs/* ]]; then
+            echo "Valid branch name: $BRANCH"
+          else
+            echo "Invalid branch name: $BRANCH"
+            echo "Allowed patterns: feature/*, fix/*, docs/*"
+            exit 1
+          fi
+
+  pr-body-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR Body
+        run: echo "PR body - ${{ github.event.pull_request.body }}"
+
+      - name: Check if PR description is empty
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          # Trim whitespace using standard bash manipulation
+          TRIMMED_BODY=$(echo "$BODY" | xargs)
+          
+          if [ -z "$TRIMMED_BODY" ]; then
+            echo "::warning::The pull request description is empty. Please add a description."
+          else
+            echo "PR description is provided."
+          fi
