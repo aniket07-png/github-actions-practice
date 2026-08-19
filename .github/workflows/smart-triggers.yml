@@ -8,8 +8,7 @@ on:
       
     paths:
       - 'static/**'
-      - '.github/actions/**'
-      - 'README.md/**'
+      - '.github/**'
 
 jobs:
   info:
