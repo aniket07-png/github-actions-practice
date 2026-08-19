@@ -15,8 +15,35 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
 
-      - name: Fails if any file in the PR is larger than 1 MB
-        run: find . -type file -size -1M
+      - name: Check file sizes
+        run: |
+          MAX_SIZE=$((1024 * 1024))  # 1 MB
+          FAILED=false
+
+          echo "Checking files changed in this PR..."
+
+          for file in $(git diff --name-only \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.event.pull_request.head.sha }}"); do
+
+            if [[ -f "$file" ]]; then
+              SIZE=$(stat -c%s "$file")
+
+              echo "$file: $SIZE bytes"
+
+              if [[ "$SIZE" -gt "$MAX_SIZE" ]]; then
+                echo "❌ $file is larger than 1 MB"
+                FAILED=true
+              fi
+            fi
+          done
+
+          if [[ "$FAILED" == "true" ]]; then
+            echo "❌ File size check failed."
+            exit 1
+          fi
+
+          echo "✅ All changed files are within the 1 MB limit."
 
   branch-name-check:
     runs-on: ubuntu-latest
